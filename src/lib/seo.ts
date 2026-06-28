@@ -10,6 +10,7 @@ export {
   buildRobotsTxt,
   buildSeoHeadTags,
   buildNoscriptFallback,
+  buildStaticSeoContent,
   buildLlmsTxt,
 } from "../../seo.build.js";
 

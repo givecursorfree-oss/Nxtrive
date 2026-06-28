@@ -5,10 +5,10 @@ import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import {
   buildLlmsTxt,
-  buildNoscriptFallback,
   buildRobotsTxt,
   buildSeoHeadTags,
   buildSitemapXml,
+  buildStaticSeoContent,
   getSiteUrl,
 } from "./seo.build.js";
 
@@ -17,10 +17,10 @@ function seoBuildPlugin(siteUrl: string): Plugin {
     name: "nxtrive-seo",
     transformIndexHtml(html) {
       const seoTags = buildSeoHeadTags(siteUrl);
-      const noscript = buildNoscriptFallback();
+      const staticSeo = buildStaticSeoContent();
 
       return html
-        .replace("<!-- SEO_NOSCRIPT -->", noscript)
+        .replace("<!-- SEO_STATIC -->", staticSeo)
         .replace("</head>", `    ${seoTags}\n  </head>`);
     },
     closeBundle() {

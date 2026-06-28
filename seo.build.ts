@@ -12,7 +12,7 @@ export const FOOTER_FLICKER_TEXT_MOBILE = BRAND_NAME;
 export const SEO = {
   title: `${BRAND_NAME} — Offline Local RAG App | Chat with PDFs & Documents`,
   description:
-    "Free, open-source local RAG desktop app for Windows, macOS, and Linux. Chat with PDFs, Word docs, and code using an offline LLM—no cloud, API keys, or account.",
+    "Offline local RAG app for Windows, macOS and Linux. Chat with PDFs and documents privately—no cloud, API keys, or account.",
   keywords: [
     "local RAG",
     "offline document chat",
@@ -187,30 +187,77 @@ Sitemap: ${siteUrl}/sitemap.xml
 `;
 }
 
-export function buildNoscriptFallback(): string {
-  const nav = [
-    ["Features", "#features"],
-    ["How it works", "#how-it-works"],
-    ["Use cases", "#who-its-for"],
-    ["Download", "#download"],
-    ["FAQ", "#faq"],
-    ["GitHub", GITHUB_REPO],
-  ] as const;
-
-  return `<noscript>
-    <div style="max-width:42rem;margin:2rem auto;padding:0 1.25rem;font-family:system-ui,sans-serif;line-height:1.6;color:#011821">
-      <h1>${SEO.title}</h1>
-      <p>${SEO.description}</p>
-      <nav aria-label="Primary">
-        <ul>
-          ${nav.map(([label, href]) => `<li><a href="${href}">${label}</a></li>`).join("\n          ")}
-        </ul>
-      </nav>
+export function buildStaticSeoContent(): string {
+  return `<main id="static-seo-fallback" class="static-seo-fallback">
+    <h1>Chat with your PDFs and documents offline using local RAG</h1>
+    <p>
+      ${BRAND_NAME} is a free, open-source offline local RAG desktop app for Windows, macOS, and Linux.
+      Turn folders of PDFs, Word documents, Markdown files, and source code into a private knowledge base on
+      your machine. Ask questions in plain language and get cited answers from a local LLM—not a cloud API.
+    </p>
+    <p>
+      Local RAG (retrieval-augmented generation) searches your files first, then lets a language model answer
+      using only what it retrieved. Every document stays on your device. There are no API keys, no accounts,
+      and no uploads to third-party servers. After you download ${BRAND_NAME} and an Ollama model once, chat
+      and indexing work completely offline.
+    </p>
+    <section id="features">
+      <h2>Offline local RAG features for private document chat</h2>
+      <p>
+        Ingest entire folders with drag-and-drop, organize multiple collections, and chat with cited passages
+        pulled directly from your PDFs and documents. ${BRAND_NAME} supports PDF, Word (.docx), plain text,
+        Markdown, CSV, JSON, HTML, CSS, and common programming languages including Python, JavaScript, and
+        TypeScript. Source citations show exactly which file and section each answer came from.
+      </p>
+    </section>
+    <section id="how-it-works">
+      <h2>How offline document chat works</h2>
+      <p>
+        Add a folder, ${BRAND_NAME} chunks and embeds your files into a local vector database, then connects
+        to Ollama for inference on your hardware. When you ask a question, the app retrieves the most relevant
+        passages and sends them to the model as context—grounding every response in your own content rather
+        than the open web.
+      </p>
+    </section>
+    <section id="who-its-for">
+      <h2>Who uses offline local RAG</h2>
+      <p>
+        Researchers, developers, legal teams, clinicians, and privacy-conscious professionals use ${BRAND_NAME}
+        when sensitive documents cannot leave the network. It is ideal for air-gapped environments, travel,
+        client work under NDA, and anyone who wants document AI without subscription fees or vendor lock-in.
+      </p>
+    </section>
+    <section id="download">
+      <h2>Download ${BRAND_NAME} for Windows, macOS, and Linux</h2>
+      <p>
+        ${BRAND_NAME} is open source under the MIT license. Download the latest release for your platform from
+        GitHub. You need 8 GB RAM minimum (16 GB recommended) and Ollama installed for the local language model.
+        Windows 10/11, macOS 10.15+, and Ubuntu 22.04+ (or equivalent Linux) are supported.
+      </p>
+    </section>
+    <section id="faq">
+      <h2>Frequently asked questions about local RAG</h2>
       ${FAQ_ITEMS.map(
         (item) =>
-          `<section><h2>${item.question}</h2><p>${item.answer}</p></section>`,
+          `<h3>${item.question}</h3><p>${item.answer}</p>`,
       ).join("\n      ")}
-    </div>
+    </section>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#who-its-for">Use cases</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="${GITHUB_REPO}">GitHub</a></li>
+      </ul>
+    </nav>
+  </main>`;
+}
+
+export function buildNoscriptFallback(): string {
+  return `<noscript>
+    ${buildStaticSeoContent()}
   </noscript>`;
 }
 
