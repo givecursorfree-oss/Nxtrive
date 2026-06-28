@@ -1,0 +1,18 @@
+{
+  "name": "Nxtrive — Offline Local RAG",
+  "short_name": "Nxtrive",
+  "description": "Chat with your PDFs and documents using a 100% offline local LLM. No cloud. No API keys.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f6f8",
+  "theme_color": "#111a4a",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/logos/nxtrive-mark.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

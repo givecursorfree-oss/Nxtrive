@@ -1,0 +1,14 @@
+/* Marketing-only extensions — not in canonical variables.css (gradients + motion from DESIGN.md) */
+:root {
+  --gradient-map: linear-gradient(
+    125deg,
+    #d65620 0%,
+    #9f7aee 14%,
+    #4575cd 32%,
+    #71d2f0 50%,
+    #44b48b 68%,
+    #f4df69 85%
+  );
+  --gradient-hero-bloom: radial-gradient(29.88% 184.91% at 6.55% -48.11%, #771c86 0%, #111a4a 100%);
+  --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+}

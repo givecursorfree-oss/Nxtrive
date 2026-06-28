@@ -1,0 +1,133 @@
+/* Tailwind v4 — maps Nxtrive design tokens (variables.css) to utilities */
+@theme inline {
+  /* Brand colors */
+  --color-paper-white: var(--color-paper-white);
+  --color-card-white: var(--color-card-white);
+  --color-deep-ink: var(--color-deep-ink);
+  --color-carbon: var(--color-carbon);
+  --color-slate: var(--color-slate);
+  --color-mist: var(--color-mist);
+  --color-fog: var(--color-fog);
+  --color-headline-muted: var(--color-headline-muted);
+  --color-graphite: var(--color-graphite);
+  --color-deep-indigo: var(--color-deep-indigo);
+  --color-ember-orange: var(--color-ember-orange);
+  --color-midnight-teal: var(--color-midnight-teal);
+  --color-forest-teal: var(--color-forest-teal);
+  --color-sky-blue: var(--color-sky-blue);
+  --color-pale-cyan: var(--color-pale-cyan);
+  --color-mint: var(--color-mint);
+  --color-lavender: var(--color-lavender);
+
+  /* shadcn semantic colors */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  /* Typography */
+  --font-sans: var(--font-suisseintl);
+  --font-mono: var(--font-sfmono);
+  --font-label: var(--font-suisseintlmono);
+
+  --font-weight-light: var(--font-weight-light);
+  --font-weight-normal: var(--font-weight-regular);
+  --font-weight-medium: var(--font-weight-medium);
+  --font-weight-semibold: var(--font-weight-semibold);
+
+  --text-caption: var(--text-caption);
+  --text-caption--line-height: var(--leading-caption);
+  --text-body-sm: var(--text-body-sm);
+  --text-body-sm--line-height: var(--leading-body-sm);
+  --text-body: var(--text-body);
+  --text-body--line-height: var(--leading-body);
+  --text-body-lg: var(--text-body-lg);
+  --text-body-lg--line-height: var(--leading-body-lg);
+  --text-body-lg--letter-spacing: var(--tracking-body-lg);
+  --text-subheading: var(--text-subheading);
+  --text-subheading--line-height: var(--leading-subheading);
+  --text-subheading--letter-spacing: var(--tracking-subheading);
+  --text-heading-sm: var(--text-heading-sm);
+  --text-heading-sm--line-height: var(--leading-heading-sm);
+  --text-heading-sm--letter-spacing: var(--tracking-heading-sm);
+  --text-heading: var(--text-heading);
+  --text-heading--line-height: var(--leading-heading);
+  --text-heading--letter-spacing: var(--tracking-heading);
+  --text-heading-lg: var(--text-heading-lg);
+  --text-heading-lg--line-height: var(--leading-heading-lg);
+  --text-heading-lg--letter-spacing: var(--tracking-heading-lg);
+  --text-display: var(--text-display);
+  --text-display--line-height: var(--leading-display);
+  --text-display--letter-spacing: var(--tracking-display);
+
+  /* Spacing (4px grid — overrides default Tailwind scale for these keys) */
+  --spacing-4: var(--spacing-4);
+  --spacing-8: var(--spacing-8);
+  --spacing-12: var(--spacing-12);
+  --spacing-16: var(--spacing-16);
+  --spacing-20: var(--spacing-20);
+  --spacing-24: var(--spacing-24);
+  --spacing-32: var(--spacing-32);
+  --spacing-40: var(--spacing-40);
+  --spacing-48: var(--spacing-48);
+  --spacing-64: var(--spacing-64);
+  --spacing-72: var(--spacing-72);
+  --spacing-80: var(--spacing-80);
+  --spacing-96: var(--spacing-96);
+  --spacing-100: var(--spacing-100);
+  --spacing-144: var(--spacing-144);
+
+  /* Radii */
+  --radius-card: var(--radius-cards);
+  --radius-button: var(--radius-buttons);
+  --radius-badge: var(--radius-badges);
+  --radius-nav: var(--radius-nav);
+  --radius-sm: var(--radius-sm);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+
+  /* Shadows */
+  --shadow-subtle: var(--shadow-subtle);
+  --shadow-subtle-2: var(--shadow-subtle-2);
+  --shadow-subtle-3: var(--shadow-subtle-3);
+  --shadow-subtle-4: var(--shadow-subtle-4);
+  --shadow-subtle-5: var(--shadow-subtle-5);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-xl: var(--shadow-xl);
+
+  /* Layout */
+  --max-width-page: var(--page-max-width);
+
+  /* Animation */
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+}
+
+@utility transform-3d {
+  transform-style: preserve-3d;
+}

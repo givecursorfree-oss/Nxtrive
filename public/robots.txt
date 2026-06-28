@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Canonical sitemap URL is rewritten at build time from VITE_SITE_URL.
+Sitemap: https://nxtrive.app/sitemap.xml

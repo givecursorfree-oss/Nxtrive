@@ -1,0 +1,7 @@
+# Nxtrive — offline local RAG desktop app
+# https://nxtrive.app/
+
+User-agent: *
+Allow: /
+
+Sitemap: https://nxtrive.app/sitemap.xml
