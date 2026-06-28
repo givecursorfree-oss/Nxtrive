@@ -1,8 +1,9 @@
 /** Build-time SEO helpers (no path aliases — safe for vite.config.ts). */
 
 export const BRAND_NAME = "Nxtrive";
-const GITHUB_REPO = "https://github.com/nxtriveapp/nxtrive";
-const DEFAULT_SITE_URL = "https://nxtrive.app";
+const GITHUB_REPO = "https://github.com/givecursorfree-oss/Nxtrive";
+/** Temporary canonical until nxtrive.app DNS is live — override via VITE_SITE_URL on Vercel. */
+export const DEFAULT_SITE_URL = "https://nxtrive.vercel.app";
 
 /** Flickering footer grid — desktop tagline (matches reference component). */
 export const FOOTER_FLICKER_TEXT = "Streamline your workflow";

@@ -3,6 +3,7 @@ export {
   FAQ_ITEMS,
   FOOTER_FLICKER_TEXT,
   FOOTER_FLICKER_TEXT_MOBILE,
+  DEFAULT_SITE_URL,
   getSiteUrl,
   buildJsonLd,
   buildSitemapXml,
@@ -11,8 +12,6 @@ export {
   buildNoscriptFallback,
   buildLlmsTxt,
 } from "../../seo.build.js";
-
-export const DEFAULT_SITE_URL = "https://nxtrive.app";
 
 export function absoluteUrl(siteUrl: string, path: string): string {
   const normalized = path.startsWith("/") ? path : `/${path}`;
