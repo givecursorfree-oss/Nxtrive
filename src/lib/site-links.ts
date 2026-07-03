@@ -1,7 +1,7 @@
 import { BRAND_NAME } from "@/lib/brand";
 
 /** Central link targets — update GITHUB_REPO when the GitHub org/repo is finalized. */
-const GITHUB_REPO = "https://github.com/givecursorfree-oss/Nxtrive";
+const GITHUB_REPO = "https://github.com/devzeromax/Nxtrive";
 
 export const SITE_LINKS = {
   home: "#main",

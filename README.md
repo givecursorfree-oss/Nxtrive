@@ -1,39 +1,77 @@
-# Nxtrive — Marketing Site
+<p align="center">
+  <img src="public/logos/nxtrive-mark.png" alt="Nxtrive logo" width="80" height="80" />
+</p>
 
-Official landing page for [**Nxtrive**](https://nxtrive.vercel.app/), a free, open-source **offline local RAG desktop app** for Windows, macOS, and Linux. Chat with PDFs, Word documents, and code using a private on-device LLM — no cloud, API keys, or account required.
+<h1 align="center">Nxtrive</h1>
 
-**Live site:** [nxtrive.vercel.app](https://nxtrive.vercel.app/)  
-**Product repo:** [github.com/givecursorfree-oss/Nxtrive](https://github.com/givecursorfree-oss/Nxtrive)
+<p align="center">
+  <strong>Your documents. Your machine. Your answers.</strong>
+</p>
+
+<p align="center">
+  Free, open-source offline local RAG desktop app for Windows, macOS, and Linux.<br />
+  Chat with PDFs, Word docs, and code using a private on-device LLM — no cloud, API keys, or account.
+</p>
+
+<p align="center">
+  <a href="https://nxtrive.vercel.app/"><strong>Live website</strong></a> ·
+  <a href="https://github.com/devzeromax/Nxtrive/releases">Releases</a> ·
+  <a href="https://github.com/devzeromax/Nxtrive/issues">Issues</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" alt="React 19" />
+  <img src="https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white" alt="Vite 8" />
+  <img src="https://img.shields.io/badge/Tailwind-4-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS v4" />
+  <img src="https://img.shields.io/badge/License-MIT-green" alt="MIT License" />
+</p>
 
 ---
 
-## Overview
+## About
 
-This repository contains the production marketing website for Nxtrive: a single-page React application with scroll-driven animations, product demos, download CTAs, FAQ, and a full technical SEO layer built into the Vite pipeline.
+**Nxtrive** is a local [RAG](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) (retrieval-augmented generation) desktop application. It indexes your folders locally, retrieves the most relevant passages, and answers questions with **source citations** — all without sending data to the cloud.
 
-The site is designed to convert visitors searching for **local RAG**, **offline document chat**, and **private LLM** tools into GitHub downloads and product adoption.
+This repository is the **official marketing website** and landing page for Nxtrive, maintained by [**@devzeromax**](https://github.com/devzeromax).
+
+| | |
+|---|---|
+| **Website** | [nxtrive.vercel.app](https://nxtrive.vercel.app/) |
+| **Repository** | [github.com/devzeromax/Nxtrive](https://github.com/devzeromax/Nxtrive) |
+| **Platforms** | Windows · macOS · Linux |
+| **LLM runtime** | [Ollama](https://ollama.com/) (local) |
 
 ---
 
-## Features
+## Why Nxtrive?
 
-### Marketing & UX
-- Responsive single-page layout with sticky navigation and section-aware active states
-- Hero with word-reveal animation, live chat mockup, and product scroll showcase
-- Persona-based use-case selector with visual previews
-- Platform download section (Windows, macOS, Linux)
-- FAQ accordion with structured data support
-- Flickering dot-grid footer with trust badges and link columns
-- Smooth scroll (Lenis) with reduced-motion fallbacks
-- Accessible skip link, ARIA labels, and keyboard-friendly navigation
+- **100% offline** — works after initial model download; ideal for air-gapped and secure environments
+- **Private by design** — documents never leave your machine
+- **Open source (MIT)** — no subscription, usage limits, or account required
+- **Cited answers** — responses grounded in your files with traceable sources
+- **Broad file support** — PDF, Word, Markdown, CSV, JSON, HTML, CSS, and source code
 
-### SEO & Discoverability
-- Build-time injection of canonical URLs, Open Graph, and Twitter Card meta tags
-- JSON-LD structured data: `WebSite`, `WebPage`, `Organization`, `SoftwareApplication`, `FAQPage`
-- Static crawlable HTML fallback (~500 words) for non-JS crawlers and audit tools
-- Auto-generated `sitemap.xml`, `robots.txt`, and `llms.txt` on production build
-- Google Search Console HTML verification support
-- Security headers via `vercel.json` (CSP, Referrer-Policy, X-Frame-Options, nosniff)
+---
+
+## Website Features
+
+This landing page is a production-grade React SPA built to rank for **local RAG**, **offline document chat**, and **private LLM** searches.
+
+### Product experience
+- Animated hero with live chat mockup and scroll-driven product showcase
+- Persona-based use-case selector (research, legal, clinical, developers, and more)
+- Platform download section with GitHub release links
+- FAQ with accordion UI and structured data
+- Flickering dot-grid footer, smooth scroll, and reduced-motion support
+- Fully responsive with accessible navigation and skip links
+
+### SEO & technical
+- Build-time meta tags, Open Graph, and Twitter Cards
+- JSON-LD: `WebSite`, `WebPage`, `Organization`, `SoftwareApplication`, `FAQPage`
+- Static crawlable HTML for search engines and audit tools
+- Auto-generated `sitemap.xml`, `robots.txt`, and `llms.txt`
+- Security headers (CSP, Referrer-Policy, X-Frame-Options)
 
 ---
 
@@ -41,71 +79,50 @@ The site is designed to convert visitors searching for **local RAG**, **offline 
 
 | Layer | Technology |
 |-------|------------|
-| Framework | [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) |
-| Build | [Vite 8](https://vite.dev/) |
-| Styling | [Tailwind CSS v4](https://tailwindcss.com/) |
-| Animation | [Motion](https://motion.dev/) (Framer Motion) |
-| Smooth scroll | [Lenis](https://github.com/ddarko/lenis) |
-| UI primitives | shadcn-style components + [Lucide](https://lucide.dev/) icons |
-| Linting | [Oxlint](https://oxc.rs/) |
-| Deployment | [Vercel](https://vercel.com/) |
+| UI | React 19 · TypeScript |
+| Build | Vite 8 |
+| Styling | Tailwind CSS v4 |
+| Animation | Motion · Lenis |
+| Icons | Lucide React |
+| Lint | Oxlint |
+| Hosting | Vercel |
 
 ---
 
-## Getting Started
+## Quick Start
 
 ### Prerequisites
 
-- **Node.js** 20+
-- **npm** 10+
+- Node.js **20+**
+- npm **10+**
 
-### Installation
+### Install & run
 
 ```bash
-git clone https://github.com/givecursorfree-oss/Nxtrive.git
+git clone https://github.com/devzeromax/Nxtrive.git
 cd Nxtrive
 npm install
+npm run dev
 ```
 
-### Environment variables
+Dev server: [http://localhost:5174](http://localhost:5174)
 
-Copy the example file and set your canonical site URL (no trailing slash):
+### Environment
 
 ```bash
 cp .env.example .env
 ```
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `VITE_SITE_URL` | Canonical URL for meta tags, sitemap, and JSON-LD | `https://nxtrive.vercel.app` |
+| Variable | Description |
+|----------|-------------|
+| `VITE_SITE_URL` | Canonical URL for SEO (no trailing slash). Example: `https://nxtrive.vercel.app` |
 
-When your custom domain is live, update this to your production URL (e.g. `https://nxtrive.app`).
-
-### Development
+### Build
 
 ```bash
-npm run dev
-```
-
-Opens at [http://localhost:5174](http://localhost:5174).
-
-### Production build
-
-```bash
-npm run build
-npm run preview
-```
-
-The build outputs to `dist/` and generates:
-- `sitemap.xml`
-- `robots.txt`
-- `llms.txt`
-- SEO-enriched `index.html`
-
-### Lint
-
-```bash
-npm run lint
+npm run build    # type-check + production build → dist/
+npm run preview  # preview production build locally
+npm run lint     # run Oxlint
 ```
 
 ---
@@ -113,88 +130,63 @@ npm run lint
 ## Project Structure
 
 ```
-├── public/                  # Static assets (fonts, logos, images, verification files)
-├── seo.build.ts             # SEO config, JSON-LD builders, sitemap/robots generators
+├── public/              # Logos, fonts, images, GSC verification
+├── seo.build.ts         # SEO config, JSON-LD, sitemap/robots builders
 ├── src/
 │   ├── components/
-│   │   ├── marketing/       # Page sections (Hero, Features, FAQ, Navbar, Footer, …)
-│   │   └── ui/              # Reusable UI (buttons, footer grid, scroll animations)
-│   ├── hooks/               # useActiveSection and other hooks
-│   ├── lib/                 # Brand, site links, SEO re-exports, utilities
-│   └── styles/              # Typography, theme tokens, component CSS
-├── index.html               # HTML shell (SEO placeholders injected at build)
-├── vercel.json              # Deployment headers and caching rules
-└── vite.config.ts           # Vite + Tailwind + SEO build plugin
+│   │   ├── marketing/   # Hero, Features, FAQ, Navbar, Footer, …
+│   │   └── ui/          # Buttons, animations, flickering footer
+│   ├── hooks/
+│   ├── lib/             # Brand, site links, utilities
+│   └── styles/          # Typography and design tokens
+├── vercel.json          # Deployment headers
+└── vite.config.ts       # Vite + SEO build plugin
 ```
 
 ---
 
-## Deployment
+## Deploy to Vercel
 
-### Vercel (recommended)
-
-1. Import the GitHub repository in [Vercel](https://vercel.com/new).
-2. Set environment variable:
-   ```
-   VITE_SITE_URL=https://your-domain.com
-   ```
-3. Deploy — build command: `npm run build`, output directory: `dist`.
-
-### Google Search Console
-
-1. Add property for your live URL prefix.
-2. Verify ownership via the HTML file in `public/googlec76785a677206ee6.html` (or replace with your own).
-3. Submit sitemap: `sitemap.xml` (path only, not the full URL).
+1. Push this repo to **github.com/devzeromax/Nxtrive**
+2. [Import the project](https://vercel.com/new) in Vercel
+3. Set `VITE_SITE_URL` to your production URL
+4. Build command: `npm run build` · Output: `dist`
 
 ---
 
-## SEO Configuration
+## SEO & Search Console
 
-All SEO constants live in `seo.build.ts`:
+After deploying:
 
-- Page title, meta description, keywords
-- Open Graph and Twitter Card copy
-- FAQ items (used in-page and in `FAQPage` schema)
-- Footer flicker text constants
+1. Verify ownership in [Google Search Console](https://search.google.com/search-console)
+2. Submit sitemap: `sitemap.xml` (path only — not the full URL)
+3. Request indexing for your homepage
 
-The Vite plugin `nxtrive-seo` injects head tags and static crawlable content during `transformIndexHtml`, and writes sitemap/robots/llms files in `closeBundle`.
-
-To change the canonical domain site-wide, update `VITE_SITE_URL` and redeploy.
-
----
-
-## Scripts
-
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start dev server on port 5174 |
-| `npm run build` | Type-check + production build |
-| `npm run preview` | Preview production build locally |
-| `npm run lint` | Run Oxlint |
-| `npm run ui` | Add shadcn components |
+SEO constants are centralized in `seo.build.ts`. Change `VITE_SITE_URL` and redeploy to update canonical URLs site-wide.
 
 ---
 
 ## Contributing
 
-Contributions are welcome. Please open an issue before large changes. For typos, copy updates, or SEO tweaks, pull requests are appreciated.
+Contributions are welcome from the community.
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feat/your-change`)
-3. Commit with a clear message
-4. Push and open a pull request
+1. Fork [devzeromax/Nxtrive](https://github.com/devzeromax/Nxtrive)
+2. Create a branch: `git checkout -b feat/your-change`
+3. Commit and push
+4. Open a pull request
 
 ---
 
-## Links
+## License
 
-- **Website:** [nxtrive.vercel.app](https://nxtrive.vercel.app/)
-- **GitHub:** [givecursorfree-oss/Nxtrive](https://github.com/givecursorfree-oss/Nxtrive)
-- **Sitemap:** [nxtrive.vercel.app/sitemap.xml](https://nxtrive.vercel.app/sitemap.xml)
-- **LLMs.txt:** [nxtrive.vercel.app/llms.txt](https://nxtrive.vercel.app/llms.txt)
+Nxtrive is open source under the **MIT License**.
 
 ---
 
 <p align="center">
-  <strong>Nxtrive</strong> — Your documents. Your machine. Your answers.
+  Maintained by <a href="https://github.com/devzeromax">@devzeromax</a>
+</p>
+
+<p align="center">
+  <sub>If this project helps you, consider starring the repo.</sub>
 </p>

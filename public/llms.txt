@@ -5,7 +5,7 @@
 ## Product
 - Offline local RAG desktop app for Windows, macOS, and Linux
 - Chat with PDFs, Word docs, and code using a local LLM
-- Open source (MIT): https://github.com/givecursorfree-oss/Nxtrive
+- Open source (MIT): https://github.com/devzeromax/Nxtrive
 
 ## Canonical URL
 https://nxtrive.vercel.app/
@@ -16,4 +16,7 @@ https://nxtrive.vercel.app/
 - https://nxtrive.vercel.app/#faq — Frequently asked questions
 
 ## Documentation
-https://github.com/givecursorfree-oss/Nxtrive#readme
+https://github.com/devzeromax/Nxtrive#readme
+
+## Maintainer
+https://github.com/devzeromax
