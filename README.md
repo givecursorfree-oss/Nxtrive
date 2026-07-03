@@ -1,25 +1,21 @@
 <p align="center">
   <a href="https://nxtrive.vercel.app/">
-    <img src="./public/images/nxtrive-banner.png" alt="Nxtrive — Local document intelligence. Your documents. Your machine. Your answers. Offline local RAG for PDFs, docs, code and more." width="100%" />
+    <img src="./public/images/nxtrive-banner.png" alt="Nxtrive — Local document intelligence. Your documents. Your machine. Your answers." width="100%" />
   </a>
 </p>
 
 <p align="center">
-  <a href="https://nxtrive.vercel.app/"><strong>🌐 nxtrive.vercel.app</strong></a>
+  <a href="https://nxtrive.vercel.app/"><strong>nxtrive.vercel.app</strong></a>
   &nbsp;·&nbsp;
-  <a href="https://github.com/devzeromax/Nxtrive/releases">Releases</a>
+  <a href="https://github.com/devzeromax/Nxtrive/releases">Download</a>
   &nbsp;·&nbsp;
   <a href="https://github.com/devzeromax/Nxtrive/issues">Issues</a>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Website-nxtrive.vercel.app-111a4a?style=flat-square&logo=google-chrome&logoColor=white" alt="Website" />
+  <img src="https://img.shields.io/badge/Website-nxtrive.vercel.app-111a4a?style=flat-square" alt="Website" />
   <img src="https://img.shields.io/badge/License-MIT-22c55e?style=flat-square" alt="MIT License" />
-  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React 19" />
-  <img src="https://img.shields.io/badge/TypeScript-6-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite 8" />
-  <img src="https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS v4" />
-  <img src="https://img.shields.io/badge/Ollama-Local_LLM-white?style=flat-square" alt="Ollama" />
+  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-111a4a?style=flat-square" alt="Platforms" />
 </p>
 
 <p align="center">
@@ -28,152 +24,112 @@
 
 ---
 
-## Table of contents
-
-- [Overview](#overview)
-- [Key features](#key-features)
-- [Supported platforms](#supported-platforms)
-- [About this repository](#about-this-repository)
-- [Tech stack](#tech-stack)
-- [Getting started](#getting-started)
-- [Configuration](#configuration)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
-
----
-
 ## Overview
 
-**Nxtrive** is a free, open-source **local document intelligence** app for Windows, macOS, and Linux. Chat with PDFs, Word files, code, and more using **offline local RAG** — private, cited, and powered by a local LLM through [Ollama](https://ollama.com/).
+**Nxtrive** is a free, open-source **desktop application** for offline local document intelligence on **Windows, macOS, and Linux**.
+
+Install Nxtrive on your machine, point it at your folders, and chat with PDFs, Word documents, Markdown files, and source code using a **local language model**. Retrieval, indexing, and inference run on your hardware. Your files are never uploaded to the cloud.
 
 > **Your documents. Your machine. Your answers.**
 
-No cloud uploads. No API keys. No account.
+- No cloud uploads
+- No API keys
+- No account required
+- MIT licensed
+
+**Website:** [nxtrive.vercel.app](https://nxtrive.vercel.app/)
 
 ---
 
-## Key features
+## What Nxtrive does
 
-| | Feature | Description |
-| :---: | :-- | :-- |
-| 🛡️ | **100% offline** | Privacy by design — works without a network after setup |
-| 📄 | **Multi-format** | PDF, Word, Markdown, CSV, JSON, HTML, CSS, and source code |
-| 💬 | **Cited answers** | Every response traceable to source files and passages |
-| 📁 | **Folder intake** | Drag, drop, and index entire collections |
-| 🖥️ | **Cross-platform** | Native builds for Windows, macOS, and Linux |
+Nxtrive uses **local RAG** (retrieval-augmented generation) to answer questions grounded in your own documents:
+
+1. **Index** — Add folders by drag-and-drop. Nxtrive chunks and embeds files into a local vector database.
+2. **Retrieve** — Your question pulls the most relevant passages from your collections.
+3. **Answer** — A local LLM (via [Ollama](https://ollama.com/)) generates a response with **source citations** you can verify.
+
+Built for researchers, developers, legal teams, and anyone who needs document AI without sending data off-device.
 
 ---
 
-## Supported platforms
+## Features
 
-| Platform | Version |
+| Feature | Description |
+| :-- | :-- |
+| **Offline operation** | Works without a network connection after initial setup |
+| **Multi-format support** | PDF, Word (.docx), Markdown, CSV, JSON, HTML, CSS, and source code |
+| **Cited answers** | Responses linked to specific files and passages |
+| **Folder ingestion** | Drag, drop, and organize multiple document collections |
+| **Cross-platform desktop app** | Native experience on Windows, macOS, and Linux |
+| **Private by design** | All indexing and chat stay on your machine |
+
+---
+
+## Download
+
+Install the desktop application for your platform from the latest release:
+
+**[github.com/devzeromax/Nxtrive/releases](https://github.com/devzeromax/Nxtrive/releases)**
+
+| Platform | Supported versions |
 | :-- | :-- |
 | **Windows** | 10 / 11 |
-| **macOS** | 10.15+ |
-| **Linux** | Ubuntu 22.04+ (or equivalent) |
+| **macOS** | 10.15 and later |
+| **Linux** | Ubuntu 22.04+ or equivalent |
 
-**Requirements:** 8 GB RAM minimum (16 GB+ recommended) · [Ollama](https://ollama.com/) installed
+### System requirements
 
----
-
-## About this repository
-
-This repo contains the **official marketing website** for Nxtrive — a production React landing page with product demos, download CTAs, and a full SEO build pipeline.
-
-- Scroll-driven product showcase and live chat mockup
-- Persona-based use-case sections
-- FAQ with `FAQPage` structured data
-- Auto-generated `sitemap.xml`, `robots.txt`, and `llms.txt`
-- Security headers (CSP, Referrer-Policy, X-Frame-Options)
-
-**Live site:** [nxtrive.vercel.app](https://nxtrive.vercel.app/)
+- **Memory:** 8 GB RAM minimum (16 GB or more recommended)
+- **LLM runtime:** [Ollama](https://ollama.com/) installed locally
+- **Storage:** Sufficient space for your document collections and models
 
 ---
 
-## Tech stack
+## Supported file types
 
-| Category | Tools |
-| :-- | :-- |
-| **Frontend** | React 19, TypeScript, Tailwind CSS v4 |
-| **Build** | Vite 8, Oxlint |
-| **Animation** | Motion, Lenis |
-| **LLM** | Ollama (local inference) |
-| **Hosting** | Vercel |
+PDF · Word (.docx) · Plain text · Markdown · CSV · JSON · HTML · CSS · Python · JavaScript · TypeScript · and other common formats
 
 ---
 
-## Getting started
+## Frequently asked questions
 
-### Prerequisites
+**Does Nxtrive work completely offline?**  
+Yes. After you download the app and an Ollama model once, indexing and chat work without an internet connection.
 
-- [Node.js](https://nodejs.org/) 20+
-- npm 10+
+**Is Nxtrive free?**  
+Yes. Nxtrive is open source under the MIT license with no subscription or usage limits.
 
-### Install & run
-
-```bash
-git clone https://github.com/devzeromax/Nxtrive.git
-cd Nxtrive
-npm install
-npm run dev
-```
-
-Local server: **http://localhost:5174**
-
-### Build
-
-```bash
-npm run build    # type-check + production build → dist/
-npm run preview  # preview locally
-npm run lint     # run Oxlint
-```
-
----
-
-## Configuration
-
-```bash
-cp .env.example .env
-```
-
-| Variable | Description |
-| :-- | :-- |
-| `VITE_SITE_URL` | Canonical URL for SEO (no trailing slash). Example: `https://nxtrive.vercel.app` |
-
-SEO copy and structured data live in [`seo.build.ts`](./seo.build.ts).
-
----
-
-## Deployment
-
-1. Push to [github.com/devzeromax/Nxtrive](https://github.com/devzeromax/Nxtrive)
-2. [Import on Vercel](https://vercel.com/new) · build: `npm run build` · output: `dist`
-3. Set `VITE_SITE_URL` to your production URL
-4. Verify in [Google Search Console](https://search.google.com/search-console) and submit `sitemap.xml`
+**Where is my data stored?**  
+On your computer only. Nxtrive does not send documents to external servers.
 
 ---
 
 ## Contributing
 
-1. [Fork the repo](https://github.com/devzeromax/Nxtrive/fork)
-2. `git checkout -b feat/your-feature`
-3. Commit and open a Pull Request
+Contributions are welcome. To propose a change:
+
+1. [Fork the repository](https://github.com/devzeromax/Nxtrive/fork)
+2. Create a branch: `git checkout -b feat/your-feature`
+3. Commit your changes and open a pull request
+
+For bugs and feature requests, use [Issues](https://github.com/devzeromax/Nxtrive/issues).
 
 ---
 
 ## License
 
-Nxtrive is open source under the [MIT License](LICENSE).
+Nxtrive is released under the [MIT License](LICENSE).
 
 ---
 
 <p align="center">
   <a href="https://nxtrive.vercel.app/">Website</a> ·
-  <a href="https://github.com/devzeromax/Nxtrive">GitHub</a> ·
+  <a href="https://github.com/devzeromax/Nxtrive/releases">Download</a> ·
+  <a href="https://github.com/devzeromax/Nxtrive/issues">Issues</a> ·
   <a href="https://github.com/devzeromax">@devzeromax</a>
 </p>
 
 <p align="center">
-  <strong>Nxtrive</strong> — Local document intelligence
+  <strong>Nxtrive</strong> — Local document intelligence for desktop
 </p>
