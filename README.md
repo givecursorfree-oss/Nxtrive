@@ -1,192 +1,222 @@
-<p align="center">
-  <img src="public/logos/nxtrive-mark.png" alt="Nxtrive logo" width="80" height="80" />
-</p>
+# Nxtrive
 
-<h1 align="center">Nxtrive</h1>
+**Offline local RAG for your documents — private, open source, and built for Windows, macOS, and Linux.**
 
-<p align="center">
-  <strong>Your documents. Your machine. Your answers.</strong>
-</p>
+[![Website](https://img.shields.io/badge/Website-nxtrive.vercel.app-111a4a?style=for-the-badge&logo=google-chrome&logoColor=white)](https://nxtrive.vercel.app/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)](LICENSE)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
 
-<p align="center">
-  Free, open-source offline local RAG desktop app for Windows, macOS, and Linux.<br />
-  Chat with PDFs, Word docs, and code using a private on-device LLM — no cloud, API keys, or account.
-</p>
+> **Your documents. Your machine. Your answers.**
 
-<p align="center">
-  <a href="https://nxtrive.vercel.app/"><strong>Live website</strong></a> ·
-  <a href="https://github.com/devzeromax/Nxtrive/releases">Releases</a> ·
-  <a href="https://github.com/devzeromax/Nxtrive/issues">Issues</a>
-</p>
+Official marketing website and landing page for [Nxtrive](https://nxtrive.vercel.app/) — a free, open-source desktop app that lets you chat with PDFs, Word files, and code using a **local LLM**. No cloud uploads. No API keys. No account.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" alt="React 19" />
-  <img src="https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white" alt="Vite 8" />
-  <img src="https://img.shields.io/badge/Tailwind-4-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS v4" />
-  <img src="https://img.shields.io/badge/License-MIT-green" alt="MIT License" />
-</p>
+**Maintained by [@devzeromax](https://github.com/devzeromax)**
 
 ---
 
-## About
+## Table of contents
 
-**Nxtrive** is a local [RAG](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) (retrieval-augmented generation) desktop application. It indexes your folders locally, retrieves the most relevant passages, and answers questions with **source citations** — all without sending data to the cloud.
+- [About the product](#about-the-product)
+- [About this repository](#about-this-repository)
+- [Preview](#preview)
+- [Features](#features)
+- [Tech stack](#tech-stack)
+- [Getting started](#getting-started)
+- [Configuration](#configuration)
+- [Deployment](#deployment)
+- [Project structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
-This repository is the **official marketing website** and landing page for Nxtrive, maintained by [**@devzeromax**](https://github.com/devzeromax).
+---
+
+## About the product
+
+Nxtrive is a **local RAG** (retrieval-augmented generation) application. It indexes folders on your machine, retrieves relevant passages, and generates answers with **source citations** — entirely offline after setup.
 
 | | |
-|---|---|
-| **Website** | [nxtrive.vercel.app](https://nxtrive.vercel.app/) |
-| **Repository** | [github.com/devzeromax/Nxtrive](https://github.com/devzeromax/Nxtrive) |
-| **Platforms** | Windows · macOS · Linux |
-| **LLM runtime** | [Ollama](https://ollama.com/) (local) |
+| :-- | :-- |
+| **Platforms** | Windows 10/11 · macOS 10.15+ · Linux (Ubuntu 22.04+) |
+| **LLM runtime** | [Ollama](https://ollama.com/) |
+| **File types** | PDF, Word, Markdown, CSV, JSON, HTML, CSS, source code |
+| **License** | MIT — free forever, no subscription |
 
 ---
 
-## Why Nxtrive?
+## About this repository
 
-- **100% offline** — works after initial model download; ideal for air-gapped and secure environments
-- **Private by design** — documents never leave your machine
-- **Open source (MIT)** — no subscription, usage limits, or account required
-- **Cited answers** — responses grounded in your files with traceable sources
-- **Broad file support** — PDF, Word, Markdown, CSV, JSON, HTML, CSS, and source code
+This repo powers the **production marketing site** at [nxtrive.vercel.app](https://nxtrive.vercel.app/). It is a single-page React application with:
+
+- Product storytelling, demos, and download CTAs
+- SEO-optimized build pipeline (meta tags, JSON-LD, sitemap, crawlable HTML)
+- Performance-focused animations with reduced-motion support
+- Accessibility-first navigation and layout
 
 ---
 
-## Website Features
+## Preview
 
-This landing page is a production-grade React SPA built to rank for **local RAG**, **offline document chat**, and **private LLM** searches.
+<p align="center">
+  <a href="https://nxtrive.vercel.app/">
+    <img src="./public/logos/nxtrive-logo-lockup.png" alt="Nxtrive — offline local RAG desktop app" width="560" />
+  </a>
+</p>
 
-### Product experience
-- Animated hero with live chat mockup and scroll-driven product showcase
-- Persona-based use-case selector (research, legal, clinical, developers, and more)
-- Platform download section with GitHub release links
-- FAQ with accordion UI and structured data
-- Flickering dot-grid footer, smooth scroll, and reduced-motion support
-- Fully responsive with accessible navigation and skip links
+<p align="center">
+  <a href="https://nxtrive.vercel.app/"><strong>→ View live site</strong></a>
+</p>
 
-### SEO & technical
-- Build-time meta tags, Open Graph, and Twitter Cards
-- JSON-LD: `WebSite`, `WebPage`, `Organization`, `SoftwareApplication`, `FAQPage`
-- Static crawlable HTML for search engines and audit tools
+---
+
+## Features
+
+### Product (Nxtrive app)
+
+- **100% offline** — index and chat without a network connection
+- **Private by design** — documents never leave your device
+- **Cited answers** — every response traceable to source files
+- **Folder ingestion** — drag-and-drop indexing with multiple collections
+- **Cross-platform** — Windows, macOS, and Linux builds
+
+### Website (this repo)
+
+- Responsive landing page with scroll-driven product showcase
+- Persona-based use-case sections (research, legal, clinical, developers, and more)
+- Platform download section linked to GitHub Releases
+- FAQ with `FAQPage` structured data
+- Build-time SEO: Open Graph, Twitter Cards, canonical URLs, JSON-LD schemas
 - Auto-generated `sitemap.xml`, `robots.txt`, and `llms.txt`
-- Security headers (CSP, Referrer-Policy, X-Frame-Options)
+- Security headers via Vercel (CSP, Referrer-Policy, X-Frame-Options)
 
 ---
 
-## Tech Stack
+## Tech stack
 
-| Layer | Technology |
-|-------|------------|
-| UI | React 19 · TypeScript |
-| Build | Vite 8 |
-| Styling | Tailwind CSS v4 |
-| Animation | Motion · Lenis |
-| Icons | Lucide React |
-| Lint | Oxlint |
-| Hosting | Vercel |
+| Category | Tools |
+| :-- | :-- |
+| **Frontend** | React 19, TypeScript, Tailwind CSS v4 |
+| **Build** | Vite 8, Oxlint |
+| **Animation** | Motion, Lenis smooth scroll |
+| **Icons** | Lucide React |
+| **Hosting** | Vercel |
 
 ---
 
-## Quick Start
+## Getting started
 
 ### Prerequisites
 
-- Node.js **20+**
-- npm **10+**
+- [Node.js](https://nodejs.org/) 20 or later
+- npm 10 or later
 
-### Install & run
+### Install
 
 ```bash
 git clone https://github.com/devzeromax/Nxtrive.git
 cd Nxtrive
 npm install
+```
+
+### Development
+
+```bash
 npm run dev
 ```
 
-Dev server: [http://localhost:5174](http://localhost:5174)
+Local server: **http://localhost:5174**
 
-### Environment
+### Production build
+
+```bash
+npm run build
+npm run preview
+```
+
+| Script | Description |
+| :-- | :-- |
+| `npm run dev` | Start development server |
+| `npm run build` | Type-check and build to `dist/` |
+| `npm run preview` | Preview production build locally |
+| `npm run lint` | Run Oxlint |
+
+---
+
+## Configuration
+
+Copy the example environment file:
 
 ```bash
 cp .env.example .env
 ```
 
-| Variable | Description |
-|----------|-------------|
-| `VITE_SITE_URL` | Canonical URL for SEO (no trailing slash). Example: `https://nxtrive.vercel.app` |
+| Variable | Required | Description |
+| :-- | :--: | :-- |
+| `VITE_SITE_URL` | Yes | Canonical site URL for SEO (no trailing slash). Example: `https://nxtrive.vercel.app` |
 
-### Build
-
-```bash
-npm run build    # type-check + production build → dist/
-npm run preview  # preview production build locally
-npm run lint     # run Oxlint
-```
+SEO copy, FAQ items, and structured data are defined in [`seo.build.ts`](./seo.build.ts).
 
 ---
 
-## Project Structure
+## Deployment
 
-```
-├── public/              # Logos, fonts, images, GSC verification
-├── seo.build.ts         # SEO config, JSON-LD, sitemap/robots builders
+### Vercel (recommended)
+
+1. Push to [github.com/devzeromax/Nxtrive](https://github.com/devzeromax/Nxtrive)
+2. Import the repository on [Vercel](https://vercel.com/new)
+3. Set environment variable `VITE_SITE_URL` to your production URL
+4. Use build command `npm run build` and output directory `dist`
+
+### Search indexing
+
+After deploy:
+
+1. Verify the site in [Google Search Console](https://search.google.com/search-console)
+2. Submit sitemap: `sitemap.xml`
+3. Request indexing for your homepage URL
+
+---
+
+## Project structure
+
+```text
+├── public/                 Static assets, fonts, logos, verification files
+├── seo.build.ts            SEO config, JSON-LD, sitemap & robots generators
 ├── src/
 │   ├── components/
-│   │   ├── marketing/   # Hero, Features, FAQ, Navbar, Footer, …
-│   │   └── ui/          # Buttons, animations, flickering footer
-│   ├── hooks/
-│   ├── lib/             # Brand, site links, utilities
-│   └── styles/          # Typography and design tokens
-├── vercel.json          # Deployment headers
-└── vite.config.ts       # Vite + SEO build plugin
+│   │   ├── marketing/      Page sections (Hero, Features, FAQ, Navbar, …)
+│   │   └── ui/             Shared UI components and animations
+│   ├── hooks/              React hooks
+│   ├── lib/                Brand, links, utilities
+│   └── styles/             Typography and design tokens
+├── vercel.json             Deployment headers
+├── vite.config.ts          Vite config + SEO build plugin
+└── index.html              HTML shell
 ```
-
----
-
-## Deploy to Vercel
-
-1. Push this repo to **github.com/devzeromax/Nxtrive**
-2. [Import the project](https://vercel.com/new) in Vercel
-3. Set `VITE_SITE_URL` to your production URL
-4. Build command: `npm run build` · Output: `dist`
-
----
-
-## SEO & Search Console
-
-After deploying:
-
-1. Verify ownership in [Google Search Console](https://search.google.com/search-console)
-2. Submit sitemap: `sitemap.xml` (path only — not the full URL)
-3. Request indexing for your homepage
-
-SEO constants are centralized in `seo.build.ts`. Change `VITE_SITE_URL` and redeploy to update canonical URLs site-wide.
 
 ---
 
 ## Contributing
 
-Contributions are welcome from the community.
+Contributions are welcome. For significant changes, open an issue first.
 
-1. Fork [devzeromax/Nxtrive](https://github.com/devzeromax/Nxtrive)
-2. Create a branch: `git checkout -b feat/your-change`
-3. Commit and push
-4. Open a pull request
+1. [Fork the repository](https://github.com/devzeromax/Nxtrive/fork)
+2. Create your branch: `git checkout -b feat/your-feature`
+3. Commit your changes: `git commit -m "Add your feature"`
+4. Push and open a Pull Request
 
 ---
 
 ## License
 
-Nxtrive is open source under the **MIT License**.
+Nxtrive is released under the [MIT License](LICENSE).
 
 ---
 
 <p align="center">
-  Maintained by <a href="https://github.com/devzeromax">@devzeromax</a>
-</p>
-
-<p align="center">
-  <sub>If this project helps you, consider starring the repo.</sub>
+  <a href="https://nxtrive.vercel.app/">Website</a> ·
+  <a href="https://github.com/devzeromax/Nxtrive/releases">Releases</a> ·
+  <a href="https://github.com/devzeromax/Nxtrive/issues">Issues</a> ·
+  <a href="https://github.com/devzeromax">@devzeromax</a>
 </p>
