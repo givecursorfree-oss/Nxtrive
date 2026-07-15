@@ -1,37 +1,23 @@
 {
-  "name": "localrag-hero",
+  "name": "nxtrive-site",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Nxtrive marketing site — Agentflow (Home V1) template converted to React, rebranded to Nxtrive.",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "oxlint",
-    "preview": "vite preview",
-    "ui": "npx shadcn@latest"
+    "gen": "node build-template.mjs",
+    "seo": "node scripts/seo-apply.mjs",
+    "dev": "npm run gen && npm run seo && vite",
+    "build": "npm run gen && npm run seo && vite build && node scripts/seo-apply.mjs --prerender",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@radix-ui/react-icons": "^1.3.2",
-    "@radix-ui/react-slot": "^1.3.0",
-    "@tailwindcss/vite": "^4.3.1",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "color-bits": "^1.1.1",
-    "lenis": "^1.3.25",
-    "lucide-react": "^1.21.0",
-    "motion": "^12.42.0",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "tailwind-merge": "^3.6.0"
+    "html-react-parser": "^5.2.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/node": "^24.13.2",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.2",
-    "oxlint": "^1.69.0",
-    "tailwindcss": "^4.3.1",
-    "typescript": "~6.0.2",
-    "vite": "^8.1.0"
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11"
   }
 }
