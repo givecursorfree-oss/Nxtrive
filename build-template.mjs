@@ -10,8 +10,7 @@ import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const ROOT = join(__dirname, "..");
-const SRC = join(ROOT, "agentflowtemplate_webflow_io.html");
+const SRC = join(__dirname, "agentflowtemplate_webflow_io.html");
 
 const GITHUB = "https://github.com/devzeromax/Nxtrive";
 const RELEASES = "https://github.com/devzeromax/Nxtrive/releases";
