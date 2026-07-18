@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import { TEMPLATE_BODY, TEMPLATE_SCRIPTS } from "./templateBody.js";
 
-/** Load an external script in order (returns a promise) */
 function loadScript(src) {
   return new Promise((resolve) => {
     if (document.querySelector(`script[data-tpl="${src}"]`)) {
@@ -19,7 +18,6 @@ function loadScript(src) {
   });
 }
 
-/** Run an inline script by injecting a <script> element */
 function injectInline(code) {
   try {
     const el = document.createElement("script");
@@ -31,15 +29,11 @@ function injectInline(code) {
   }
 }
 
-/** GSAP Observer is used by the template marquee but not shipped in TEMPLATE_SCRIPTS */
 const GSAP_OBSERVER =
   "https://cdn.prod.website-files.com/gsap/3.15.0/Observer.min.js";
 
-/**
- * Elements driven by Webflow IX2 continuous SCROLLING_IN_VIEW (a-149+) or
- * scroll-scrubbed transforms. Soft-revealing these kills their motion.
- */
-const IX2_SCROLL_MOTION_SEL = [
+/** Scroll-scrubbed terminal pieces — never wipe their transform */
+const SCROLL_MOTION_SEL = [
   ".terminal-cursor-alt",
   ".terminal-cursor",
   ".terminal-window-small",
@@ -53,13 +47,9 @@ const IX2_SCROLL_MOTION_SEL = [
 ].join(",");
 
 function isScrollMotionTarget(el) {
-  return !!(el && el.matches && el.matches(IX2_SCROLL_MOTION_SEL));
+  return !!(el && el.matches && el.matches(SCROLL_MOTION_SEL));
 }
 
-/**
- * Re-initialize Webflow IX2 against the React-rendered DOM so the template's
- * scroll / load animations play like the reference Webflow export.
- */
 function reinitWebflow() {
   const Webflow = window.Webflow;
   if (!Webflow) return false;
@@ -77,7 +67,7 @@ function reinitWebflow() {
       }
       try {
         const store = ix2.store;
-        if (store && typeof store.dispatch === "function") {
+        if (store?.dispatch) {
           store.dispatch({ type: "IX2_PAGE_UPDATE" });
           store.dispatch({
             type: "IX2_EVENT_ENGINE_EVENT",
@@ -95,48 +85,64 @@ function reinitWebflow() {
 }
 
 /**
- * Opacity-only failsafe for stuck PAGE_START hero elements.
- * Never clears transform — that races IX2 SCROLL_INTO_VIEW / SCROLLING_IN_VIEW.
+ * Opacity-only reveal. Never clears transform (that killed cursor / scroll IX2).
  */
-function softRevealOpacity(el) {
-  if (el.dataset.nxRevealed === "1") return;
+function revealOpacity(el) {
+  if (!el || el.dataset.nxRevealed === "1") return;
   if (isScrollMotionTarget(el)) return;
   el.dataset.nxRevealed = "1";
-  el.style.transition = "opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1)";
-  void el.offsetWidth;
   el.style.opacity = "1";
+  el.style.visibility = "visible";
+}
+
+/** Hero product shot must always show — IX2 often leaves it at opacity:0 in SPA */
+function revealCriticalHero() {
+  document
+    .querySelectorAll(
+      ".hero__image, .hero__image-home-version-one, #top img.hero__image, #top [style*='opacity:0']"
+    )
+    .forEach(revealOpacity);
 }
 
 /**
- * Only for initial above-the-fold stuck hides. Do NOT run on every scroll —
- * that races Webflow when sections enter the viewport.
+ * Reveal any still-hidden IX2 nodes that are in (or near) the viewport.
+ * Runs on load + scroll so sections are never permanently blank.
  */
-function revealAboveFoldFailsafe() {
+function revealVisibleStuck({ near = 1.15 } = {}) {
   const vh = window.innerHeight || 800;
-  document.querySelectorAll("[data-w-id], [style*='opacity:0']").forEach((el) => {
-    if (isScrollMotionTarget(el)) return;
-    let opacity;
-    try {
-      opacity = getComputedStyle(el).opacity;
-    } catch {
-      return;
-    }
-    if (opacity !== "0") return;
-    const r = el.getBoundingClientRect();
-    const aboveFold = r.top < vh * 0.55 && r.bottom > 0;
-    if (!aboveFold) return;
-    softRevealOpacity(el);
-  });
+  document
+    .querySelectorAll("[data-w-id], [style*='opacity:0'], .hero__image")
+    .forEach((el) => {
+      if (isScrollMotionTarget(el)) return;
+      let opacity;
+      try {
+        opacity = getComputedStyle(el).opacity;
+      } catch {
+        return;
+      }
+      if (opacity !== "0") return;
+      const r = el.getBoundingClientRect();
+      if (r.height < 1 && r.width < 1) return;
+      const inBand = r.top < vh * near && r.bottom > -vh * 0.2;
+      if (inBand) revealOpacity(el);
+    });
 }
 
-function revealAllOpaque() {
-  document.querySelectorAll("[data-w-id], [style*='opacity:0']").forEach((el) => {
-    if (isScrollMotionTarget(el)) return;
-    el.style.opacity = "1";
-  });
+/** Force every non-motion stuck node visible (last resort after IX2 had time) */
+function revealAllStuckOpacity() {
+  document
+    .querySelectorAll("[data-w-id], [style*='opacity:0'], .hero__image")
+    .forEach((el) => {
+      if (isScrollMotionTarget(el)) return;
+      try {
+        if (getComputedStyle(el).opacity === "0") revealOpacity(el);
+      } catch {
+        /* ignore */
+      }
+    });
 }
 
-/** GSAP fallback mirroring Webflow a-149 terminal cursor scrub */
+/** Always-on GSAP scrub for How-it-works cursor (matches Webflow a-149) */
 function ensureHowItWorksCursorMotion() {
   const section = document.getElementById("how-it-works");
   const cursor = section?.querySelector(".terminal-cursor-alt");
@@ -152,15 +158,15 @@ function ensureHowItWorksCursorMotion() {
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: section,
-      start: "top 80%",
-      end: "bottom 20%",
-      scrub: 0.6,
+      start: "top 85%",
+      end: "center 30%",
+      scrub: 0.65,
       invalidateOnRefresh: true,
     },
   });
 
   if (windowEl) {
-    tl.to(windowEl, { yPercent: 0, opacity: 1, ease: "none", duration: 0.35 }, 0.3);
+    tl.to(windowEl, { yPercent: 0, opacity: 1, ease: "none", duration: 0.35 }, 0.25);
   }
   tl.to(
     cursor,
@@ -169,9 +175,9 @@ function ensureHowItWorksCursorMotion() {
       yPercent: 0,
       opacity: 1,
       ease: "power1.inOut",
-      duration: 0.4,
+      duration: 0.45,
     },
-    0.35
+    0.3
   );
 }
 
@@ -191,7 +197,7 @@ export default function App() {
             await loadScript(GSAP_OBSERVER);
             observerLoaded = true;
           }
-        } else if (s.content && s.content.trim()) {
+        } else if (s.content?.trim()) {
           injectInline(s.content);
         }
       }
@@ -234,62 +240,70 @@ export default function App() {
         });
       };
 
-      const init = () => {
+      const boot = () => {
         const ok = reinitWebflow();
         removeBadge();
         wireAnnouncementBanner();
-        if (window.gsap && window.ScrollTrigger) {
-          try {
-            window.ScrollTrigger.refresh();
-          } catch {
-            /* ignore */
-          }
-        }
-        return ok;
-      };
-
-      const ix2Ok = init();
-      setTimeout(() => {
-        init();
         try {
-          window.ScrollTrigger && window.ScrollTrigger.refresh();
+          window.ScrollTrigger?.refresh();
         } catch {
           /* ignore */
         }
-      }, 250);
-      setTimeout(removeBadge, 1600);
-
-      const badgeObserver = new MutationObserver(removeBadge);
-      badgeObserver.observe(document.body, { childList: true, subtree: true });
-      setTimeout(() => badgeObserver.disconnect(), 5000);
+        return ok;
+      };
 
       const reducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)"
       ).matches;
 
+      boot();
+      // One delayed re-arm only
+      setTimeout(boot, 300);
+
+      // Hero mockup must never stay blank
+      revealCriticalHero();
+      setTimeout(revealCriticalHero, 400);
+      setTimeout(revealCriticalHero, 1000);
+
       if (reducedMotion) {
-        revealAllOpaque();
+        revealAllStuckOpacity();
         return;
       }
 
-      if (!ix2Ok) {
-        revealAllOpaque();
-        setTimeout(ensureHowItWorksCursorMotion, 400);
-        return;
-      }
+      // Let IX2 try PAGE_START, then rescue anything still invisible near viewport
+      setTimeout(() => revealVisibleStuck({ near: 1.25 }), 700);
+      setTimeout(() => revealVisibleStuck({ near: 1.25 }), 1500);
+      // Nuclear: never leave the marketing page half-blank
+      setTimeout(revealAllStuckOpacity, 2800);
 
-      // Give IX2 time to play PAGE_START; only opacity-rescue stuck hero nodes.
-      // No scroll listener — that was racing SCROLL_INTO_VIEW / cursor scrub.
-      setTimeout(() => revealAboveFoldFailsafe(), 1200);
+      let raf = 0;
+      const onScroll = () => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          revealVisibleStuck({ near: 1.2 });
+        });
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+
+      // Cursor scrub — always use GSAP so deploy matches local motion
       setTimeout(() => {
-        const cursor = document.querySelector(
-          "#how-it-works .terminal-cursor-alt"
-        );
-        if (!cursor) return;
-        const ix2 = window.Webflow && window.Webflow.require?.("ix2");
-        if (!ix2) ensureHowItWorksCursorMotion();
-      }, 2200);
-    })().catch(() => {});
+        ensureHowItWorksCursorMotion();
+        try {
+          window.ScrollTrigger?.refresh();
+        } catch {
+          /* ignore */
+        }
+      }, 600);
+
+      setTimeout(removeBadge, 1600);
+      const badgeObserver = new MutationObserver(removeBadge);
+      badgeObserver.observe(document.body, { childList: true, subtree: true });
+      setTimeout(() => badgeObserver.disconnect(), 5000);
+    })().catch(() => {
+      revealCriticalHero();
+      revealAllStuckOpacity();
+    });
   }, []);
 
   return <div dangerouslySetInnerHTML={{ __html: TEMPLATE_BODY }} />;

@@ -162,6 +162,11 @@
         html { scroll-behavior: auto; }
         [data-w-id] { opacity: 1 !important; transform: none !important; }
       }
+      /* Safety: never leave the hero product image blank if IX2 fails to fire */
+      .hero__image-home-version-one,
+      img.hero__image {
+        opacity: 1 !important;
+      }
     </style>
   </head>
   <body>
