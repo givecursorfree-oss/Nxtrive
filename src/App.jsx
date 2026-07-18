@@ -39,6 +39,26 @@ const GSAP_OBSERVER =
   "https://cdn.prod.website-files.com/gsap/3.15.0/Observer.min.js";
 
 /**
+ * Elements driven by Webflow IX2 continuous SCROLLING_IN_VIEW (a-149 Terminal
+ * Animation). Soft-revealing these with transform:none kills the cursor motion.
+ */
+const IX2_SCROLL_MOTION_SEL = [
+  ".terminal-cursor-alt",
+  ".terminal-cursor",
+  ".terminal-window-small",
+  ".terminal-dashboard",
+  ".terminal-popup",
+  ".terminal-notification",
+  ".terminal-workspace",
+  ".terminal-home__version-two",
+].join(",");
+
+function isScrollMotionTarget(el) {
+  if (!el || !el.matches) return false;
+  return el.matches(IX2_SCROLL_MOTION_SEL);
+}
+
+/**
  * Re-initialize Webflow IX2 against the React-rendered DOM so the template's
  * exact scroll-into-view animations (How it works, Features, Pricing, …) play
  * identically to the reference. Soft-destroy + init + a synthetic `load` event
@@ -83,6 +103,7 @@ function reinitWebflow() {
  */
 function softReveal(el) {
   if (el.dataset.nxRevealed === "1") return;
+  if (isScrollMotionTarget(el)) return;
   el.dataset.nxRevealed = "1";
   el.style.transition =
     "opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), " +
@@ -97,10 +118,12 @@ function softReveal(el) {
 /**
  * Reveal stuck-hidden elements. By default only touches above-the-fold
  * elements so IX2 scroll-into-view animations below the fold still play.
+ * Never touches scroll-linked terminal/cursor targets.
  */
 function revealFailsafe({ force = false } = {}) {
   const vh = window.innerHeight || 800;
   document.querySelectorAll("[data-w-id], [style*='opacity:0']").forEach((el) => {
+    if (isScrollMotionTarget(el)) return;
     let opacity;
     try {
       opacity = getComputedStyle(el).opacity;
@@ -119,6 +142,52 @@ function revealFailsafe({ force = false } = {}) {
   });
 }
 
+/**
+ * Dedicated fallback for How-it-works cursor if IX2 continuous scroll never
+ * arms (e.g. blocked scripts). Mirrors Webflow a-149 terminal-cursor-alt motion.
+ */
+function ensureHowItWorksCursorMotion() {
+  const section = document.getElementById("how-it-works");
+  const cursor = section?.querySelector(".terminal-cursor-alt");
+  const windowEl = section?.querySelector(".terminal-window-small");
+  if (!section || !cursor || cursor.dataset.nxCursorMotion === "1") return;
+  if (!window.gsap || !window.ScrollTrigger) return;
+
+  cursor.dataset.nxCursorMotion = "1";
+  const gsap = window.gsap;
+  gsap.set(cursor, { xPercent: 80, yPercent: 80, opacity: 0, force3D: true });
+  if (windowEl) gsap.set(windowEl, { yPercent: 10, opacity: 0, force3D: true });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: section,
+      start: "top 80%",
+      end: "bottom 20%",
+      scrub: 0.6,
+      invalidateOnRefresh: true,
+    },
+  });
+
+  if (windowEl) {
+    tl.to(
+      windowEl,
+      { yPercent: 0, opacity: 1, ease: "none", duration: 0.35 },
+      0.3
+    );
+  }
+  tl.to(
+    cursor,
+    {
+      xPercent: 0,
+      yPercent: 0,
+      opacity: 1,
+      ease: "power1.inOut",
+      duration: 0.4,
+    },
+    0.35
+  );
+}
+
 export default function App() {
   const started = useRef(false);
 
@@ -132,10 +201,7 @@ export default function App() {
         if (s.src) {
           await loadScript(s.src);
           // Load Observer after core GSAP so registerPlugin(ScrollTrigger, Observer) works
-          if (
-            !observerLoaded &&
-            /gsap\.min\.js/i.test(s.src)
-          ) {
+          if (!observerLoaded && /gsap\.min\.js/i.test(s.src)) {
             await loadScript(GSAP_OBSERVER);
             observerLoaded = true;
           }
@@ -191,7 +257,13 @@ export default function App() {
       };
 
       const ix2Ok = init();
-      setTimeout(init, 200);
+      // One delayed re-init only — repeated destroy() kills SCROLLING_IN_VIEW
+      setTimeout(() => {
+        init();
+        try {
+          window.ScrollTrigger && window.ScrollTrigger.refresh();
+        } catch {}
+      }, 250);
       setTimeout(removeBadge, 1600);
 
       const badgeObserver = new MutationObserver(removeBadge);
@@ -203,11 +275,16 @@ export default function App() {
       ).matches;
 
       if (!ix2Ok || reducedMotion) {
-        revealFailsafe({ force: true });
+        if (reducedMotion) {
+          revealFailsafe({ force: true });
+        } else {
+          // Scripts missing: reveal static content, then try GSAP cursor fallback
+          revealFailsafe({ force: true });
+          setTimeout(ensureHowItWorksCursorMotion, 400);
+        }
       } else {
         // Soft-reveal any above-fold PAGE_START targets IX2 didn't fire
-        // (common in SPAs). Keep a scroll listener so stuck-in-view elements
-        // never stay blank without pre-revealing below-the-fold scroll targets.
+        // (common in SPAs). Never touch scroll-linked cursor targets.
         let raf = 0;
         const onScroll = () => {
           if (raf) return;
@@ -217,9 +294,26 @@ export default function App() {
           });
         };
         window.addEventListener("scroll", onScroll, { passive: true });
-        // Give IX2 a short window to play the real load sequence first.
         setTimeout(() => revealFailsafe(), 700);
         setTimeout(() => revealFailsafe(), 1600);
+        // If IX2 continuous scroll never moves the cursor, arm GSAP fallback
+        setTimeout(() => {
+          const cursor = document.querySelector(
+            "#how-it-works .terminal-cursor-alt"
+          );
+          if (!cursor) return;
+          const t = getComputedStyle(cursor).transform;
+          const moved = t && t !== "none" && t !== "matrix(1, 0, 0, 1, 0, 0)";
+          if (!moved && getComputedStyle(cursor).opacity === "1") {
+            // Likely stuck visible without IX2 motion — use GSAP scrub
+            ensureHowItWorksCursorMotion();
+          } else if (getComputedStyle(cursor).opacity === "0") {
+            // Still hidden and unmoved after scroll opportunity — still OK;
+            // verify after user has had time; arm fallback only if IX2 dead
+            const ix2 = window.Webflow && window.Webflow.require?.("ix2");
+            if (!ix2) ensureHowItWorksCursorMotion();
+          }
+        }, 2200);
       }
     })().catch(console.error);
   }, []);
