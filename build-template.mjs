@@ -680,6 +680,9 @@ body = body.replace(/<img\b[^>]*>/g, (tag) => {
     .replace(/\s+sizes="[^"]*"/g, "");
 });
 
+// Discourage casual drag/save of images in the generated markup
+body = body.replace(/<img\b(?![^>]*\bdraggable=)/gi, '<img draggable="false" ');
+
 // Write generated module
 const outPath = join(__dirname, "src", "templateBody.js");
 const escapedBody = JSON.stringify(body);

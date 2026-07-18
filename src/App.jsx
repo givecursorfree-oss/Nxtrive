@@ -181,6 +181,17 @@ function ensureHowItWorksCursorMotion() {
   );
 }
 
+/** Block drag + context-menu save on images (friction only — not true DRM). */
+function protectImages(root = document) {
+  root.querySelectorAll("img, svg, picture, video").forEach((el) => {
+    if (el.dataset.nxProtected === "1") return;
+    el.dataset.nxProtected = "1";
+    el.setAttribute("draggable", "false");
+    el.addEventListener("dragstart", (e) => e.preventDefault());
+    el.addEventListener("contextmenu", (e) => e.preventDefault());
+  });
+}
+
 export default function App() {
   const started = useRef(false);
 
@@ -244,6 +255,7 @@ export default function App() {
         const ok = reinitWebflow();
         removeBadge();
         wireAnnouncementBanner();
+        protectImages();
         try {
           window.ScrollTrigger?.refresh();
         } catch {
@@ -259,6 +271,11 @@ export default function App() {
       boot();
       // One delayed re-arm only
       setTimeout(boot, 300);
+      protectImages();
+      // Catch late-injected template nodes
+      const imgObserver = new MutationObserver(() => protectImages());
+      imgObserver.observe(document.body, { childList: true, subtree: true });
+      setTimeout(() => imgObserver.disconnect(), 8000);
 
       // Hero mockup must never stay blank
       revealCriticalHero();

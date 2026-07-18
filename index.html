@@ -167,6 +167,16 @@
       img.hero__image {
         opacity: 1 !important;
       }
+      /* Discourage drag / casual save of site images (not absolute protection) */
+      img, svg, picture, video {
+        -webkit-user-drag: none;
+        user-drag: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      img {
+        pointer-events: auto;
+      }
     </style>
   </head>
   <body>
