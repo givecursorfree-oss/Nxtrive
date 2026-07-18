@@ -24,11 +24,19 @@ function loadScript(src) {
 
 /** Run an inline script by injecting a <script> element */
 function injectInline(code) {
-  const el = document.createElement("script");
-  el.type = "text/javascript";
-  el.textContent = code;
-  document.body.appendChild(el);
+  try {
+    const el = document.createElement("script");
+    el.type = "text/javascript";
+    el.textContent = code;
+    document.body.appendChild(el);
+  } catch (e) {
+    console.warn("Inline template script failed:", e);
+  }
 }
+
+/** GSAP Observer is used by the template marquee but not shipped in TEMPLATE_SCRIPTS */
+const GSAP_OBSERVER =
+  "https://cdn.prod.website-files.com/gsap/3.15.0/Observer.min.js";
 
 /**
  * Re-initialize Webflow IX2 against the React-rendered DOM so the template's
@@ -119,9 +127,18 @@ export default function App() {
     started.current = true;
 
     (async () => {
+      let observerLoaded = false;
       for (const s of TEMPLATE_SCRIPTS) {
         if (s.src) {
           await loadScript(s.src);
+          // Load Observer after core GSAP so registerPlugin(ScrollTrigger, Observer) works
+          if (
+            !observerLoaded &&
+            /gsap\.min\.js/i.test(s.src)
+          ) {
+            await loadScript(GSAP_OBSERVER);
+            observerLoaded = true;
+          }
         } else if (s.content && s.content.trim()) {
           injectInline(s.content);
         }
